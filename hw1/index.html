@@ -128,18 +128,52 @@
 		<h2>Task 3: Transforms</h2>
 		<p><b>Create an updated version of svg/transforms/robot.svg with cubeman doing something more interesting, like waving or running. Feel free to change his colors or proportions to suit your creativity. Save your svg file as my_robot.svg in your docs/ directory and show a png screenshot of your rendered drawing in your write-up. Explain what you were trying to do with cubeman in words.</b></p>
 		<p>I created a diva robot with hands on its hips. I was inspired by Stefon Diggs’ iconic, dramatic photo after his team lost to the Chiefs in the playoffs.</p>
-		<h2>Task 4: Barycentric coordinates</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p>I used the rotate transformation to get the arms and hands in place: Left arm (-30), left hand (60), right arm (30), right hand (-60).</p>
+		<p>Even with these transformations, the hands’ positions didn’t look quite right. So I translated the left hand to (-25 45) and the right hand to (25 45).</p>
 			
-
+		<h2>Task 4: Barycentric coordinates</h2>
+		<p><b>Explain barycentric coordinates in your own words and use an image to aid you in your explanation. One idea is to use a svg file that plots a single triangle with one red, one green, and one blue vertex, which should produce a smoothly blended color triangle.</b></p>
+		<p>I like to think of barycentric coordinates as a game of tug-of-war. Imagine you have three friends who form a triangle, and you’re being attached to three ropes being pulled by your friends. Your position will be defined by how hard your friends are pulling their respective ropes. In the attached image, each vertex (A, B, C) has its own weight (α, β, γ) that determines the point’s location in the triangle.</p>
+		<p><b>Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.</b></p>
+			
 		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different pixel sampling methods, nearest and bilinear.</b></p>
+		<p>Pixel sampling is essentially the process of picking values from a 2D texture, and using them to determine a pixel’s respective color on a 3D surface.</p>
+		<p>The problem with mapping a texture is that the UV coordinates don’t automatically match up with the texture’s pixel grid.</p>
+		<p>Nearest Neighbor Sampling</p>
+		<ul>
+			<li>Simple approach. Just round to the closest texel of the given UV coordinate.</li>
+			<li>It makes an image that looks blocky when you zoom in.</li>
+			<li>This was done by converting UV to texture space, by multiplying by width and height. Then, find the nearest integer coordinates.</li>
+		</ul>
+		<p>Bilinear Sampling</p>
+		<ul>
+			<li>A more sophisticated approach. Sample the four nearest texels, and blend between them.</li>
+			<li>The resulting image is smoother than nearest sampling.</li>
+			<li>We calculate weights (s, t) based on how close the sample point is to each texel.</li>
+			<li>LERP in the x direction, then interpolate the results in the y direction.</li>
+		</ul>
+		<p><b>Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.</b></p>
+		<p>Pictured (Top to down, left to right): Nearest 1, Bilinear 1, Nearest 16, Bilinear 16</p>
+		<p>Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.</p>
+		<ul>
+			<li>I notice that nearest sampling is very rigid/pixelated, particularly in the Mediterranean sea as shown in the pixel inspector.</li>
+			<li>Meanwhile, bilinear sampling blurs the image to create a smoother effect.</li>
+			<li>There is a larger difference between the two methods when the sampling rate is lower. At 16 samples per pixel, there is enough antialiasing to smooth the image regardless of bilinear or nearest sampling being applied.</li>
+		</ul>
 
 		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-		<h2>(Optional) Task 7: Extra Credit - Draw Something Creative!</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>Explain level sampling in your own words and describe how you implemented it for texture mapping.</b></p>
+		<p>Level sampling is the process of picking the appropriate resolution level, based on the viewing distance.</p>
+		<p>We generally prefer higher levels for objects close to the camera (higher resolution), and lower levels (lower resolution) for far away objects.</p>
+		<p>I calculated the mipmap level by taking the derivatives of u and v, I scaled them to the texture dimension, then I computed the maximum rate of change, and finally I took the Log_2 of this value. Just like in lecture.</p>
+			
+		<p><b>You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.</b></p>
+		<p>P_NEAREST is faster because it only samples one (nearest) texel, whereas P_BILINEAR reads and interpolates 4 texels. P_BILINEAR is better for antialiasing, since it's not as blocky/jagged as P_NEAREST.</p>
+		<p>L_ZERO is the fastest (only uses the base texture), L_NEAREST is medium speed (looks up one level), and L_LINEAR is the slowest (samples and interpolates 2 levels). L_ZERO uses the least memory because, again, it only utilizes the base texture. However, L_NEAREST and L_LINEAR store the entire mipmap pattern, which is 1/3 more memory than the base texture. L_LINEAR has the best antialiasing, since it transitions between mipmap levels smoothly.</p>
+		<p>Supersampling is linearly faster than sampling rate, e.g. using a sample size of 4 will make the render time 4x slower. Memory also increases linearly with supersampling, since you need to store multiple samples for every pixel.</p>
+		<p>Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR. Pictured (Left to right, top to down): L_ZERO + P_NEAREST, L_ZERO + P_LINEAR, L_NEAREST + P_NEAREST, L_NEAREST + P_LINEAR</p>
+		
 		</div>
 	</body>
 </html>
