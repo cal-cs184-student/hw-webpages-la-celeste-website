@@ -68,6 +68,8 @@
 			<li>I then updated the line tests to multiply the final result by the orientation. This allowed my code to work for clockwise and counterclockwise cases.
 		</ul>
 		<p><b>Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.</b>
+		<p>Well…my algorithm is no worse than checking every sample within the bounding box of the triangle, because that’s what I just did.
+		<p>Calculating the max/min values of x and y and iterating over every (x,y) point in between creates the smallest possible rectangle that surrounds the provided points.
 		
 
 
@@ -99,7 +101,29 @@
 		</div>
 		
 		<h2>Task 2: Antialiasing by Supersampling</h2>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+		<p><b>Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.</b>
+		<p>I made use of the built-in sample buffer. It’s a 1D vector that contains all samples.
+		<ul>
+			<li>Its size is width * height * sample_rate, which is the number of subsamples per pixel.
+		</ul>
+		<p>I also used the built-in RGB framebuffer, which stores the final image that will be displayed.
+		<ul>
+			<li>Its size is 3 * width * height because there are three channels (Red/Green/Blue).
+		</ul>
+		<p>I updated the set_sample_rate() and set_framebuffer_target() functions to accommodate for the sample rate that we’re now using.
+		<p>fill_pixel() was also updated, now it has a for loop that writes to all subsamples of a pixel.
+		<p>I updated the algorithm by modifying rasterize_triangle() to implement supersampling.
+		<ul>
+			<li>In Task 1, it was a double for loop that selected every sample within the bounding box.
+			<li>Now, for each pixel, there are additional nested for loops “i” and “j” that iterate over the (square root of the) sample rate.
+			<li>We write to the sample buffer for every subsample that passes all three line tests.
+			<li>Now, as we write the result to the framebuffer, we take the average of every pixel’s subsample. This gives us a more nuanced color shade than the binary “triangle” or “not triangle”.
+		</ul>
+		<p>Now, as we write the result to the framebuffer, we take the average of every pixel’s subsample. This gives us a more nuanced color shade than the binary “triangle” or “not triangle”.
+		<p><b>Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.</b>
+		<p>Pictured: Sample rates 1, 4, 16 respectively.
+		<p>When the sample rate is 1, we can see particularly horrid jaggies in regions like the red triangle’s edges. Some parts of the triangle seem completely disjointed.
+		<p>However, the sample rates of 4 and 16 give us smoother triangles because they average the colors around the triangles’ edges.
 
 		<h2>Task 3: Transforms</h2>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
