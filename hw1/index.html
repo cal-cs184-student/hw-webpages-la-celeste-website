@@ -123,12 +123,26 @@
 		</ul>
 		<p>Now, as we write the result to the framebuffer, we take the average of every pixel’s subsample. This gives us a more nuanced color shade than the binary “triangle” or “not triangle”.
 		<p><b>Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.</b>
-		<figure>
-			<img src="triangles 1.png" style="width:50%"/>
-			<img src="triangles 2.png" style="width:50%"/>
-			<img src="triangles 3.png" style="width:50%"/>
-			<figcaption>You can add images with captions!</figcaption>
-		</figure>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="triangles 1.png" width="400px"/>
+				  <figcaption>>Sample rate of 1</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="triangles 2.png" width="400px"/>
+				  <figcaption>Sample rate of 14.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="triangles 3.png" width="400px"/>
+				  <figcaption>Sample rate of 16.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 		<p>When the sample rate is 1, we can see particularly horrid jaggies in regions like the red triangle’s edges. Some parts of the triangle seem completely disjointed.
 		<p>However, the sample rates of 4 and 16 give us smoother triangles because they average the colors around the triangles’ edges.
 
