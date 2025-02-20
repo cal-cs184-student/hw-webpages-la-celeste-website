@@ -191,7 +191,30 @@
 			<li>LERP in the x direction, then interpolate the results in the y direction.</li>
 		</ul>
 		<p><b>Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.</b></p>
-		<p>Pictured (Top to down, left to right): Nearest 1, Bilinear 1, Nearest 16, Bilinear 16</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="nearest1.png" width="400px"/>
+				  <figcaption>Nearest + Sampling rate 1.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="bilinear1.png" width="400px"/>
+				  <figcaption>Bilinear + Sampling rate 1.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="nearest16.png" width="400px"/>
+				  <figcaption>Nearest + Sampling rate 16.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="bilinear16.png" width="400px"/>
+				  <figcaption>Bilinear + Sampling rate 16.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 		<p>Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.</p>
 		<ul>
 			<li>I notice that nearest sampling is very rigid/pixelated, particularly in the Mediterranean sea as shown in the pixel inspector.</li>
@@ -204,12 +227,37 @@
 		<p>Level sampling is the process of picking the appropriate resolution level, based on the viewing distance.</p>
 		<p>We generally prefer higher levels for objects close to the camera (higher resolution), and lower levels (lower resolution) for far away objects.</p>
 		<p>I calculated the mipmap level by taking the derivatives of u and v, I scaled them to the texture dimension, then I computed the maximum rate of change, and finally I took the Log_2 of this value. Just like in lecture.</p>
+		<img src="level.png" width="300">
 			
 		<p><b>You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.</b></p>
 		<p>P_NEAREST is faster because it only samples one (nearest) texel, whereas P_BILINEAR reads and interpolates 4 texels. P_BILINEAR is better for antialiasing, since it's not as blocky/jagged as P_NEAREST.</p>
 		<p>L_ZERO is the fastest (only uses the base texture), L_NEAREST is medium speed (looks up one level), and L_LINEAR is the slowest (samples and interpolates 2 levels). L_ZERO uses the least memory because, again, it only utilizes the base texture. However, L_NEAREST and L_LINEAR store the entire mipmap pattern, which is 1/3 more memory than the base texture. L_LINEAR has the best antialiasing, since it transitions between mipmap levels smoothly.</p>
 		<p>Supersampling is linearly faster than sampling rate, e.g. using a sample size of 4 will make the render time 4x slower. Memory also increases linearly with supersampling, since you need to store multiple samples for every pixel.</p>
-		<p>Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR. Pictured (Left to right, top to down): L_ZERO + P_NEAREST, L_ZERO + P_LINEAR, L_NEAREST + P_NEAREST, L_NEAREST + P_LINEAR</p>
+		<p>Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.</p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="l_zero p_nearest.png" width="400px"/>
+				  <figcaption>L_ZERO + P_NEAREST</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="l_zero p_linear.png" width="400px"/>
+				  <figcaption>L_ZERO + P_LINEAR</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="l_nearest p_nearest.png" width="400px"/>
+				  <figcaption>L_NEAREST + P_NEAREST</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="l_nearest p_linear.png" width="400px"/>
+				  <figcaption>L_NEAREST + L_LINEAR</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
 		
 		</div>
 	</body>
