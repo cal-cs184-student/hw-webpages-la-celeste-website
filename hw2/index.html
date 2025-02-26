@@ -118,8 +118,21 @@
 		<h2>Section II: Triangle Meshes and Half-Edge Data Structure</h2>
 
 		<h3>Part 3: Area-weighted vertex normals</h3>
-		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
+		<p><b>Briefly explain how you implemented the area-weighted vertex normals.</b></p>
+
+		<p>I started with a Vector3D named v by initializing it to (0, 0, 0). This will be used to sum the weighted normals.</p>
+
+		<p>Then, I grab "this" vertex's halfedge and iterate over its neighboring faces with a do-while loop similar to the one described in the writeup.</p>
+
+		<p>We're given that the mesh is manifold, so all adjacent faces will be visited.</p>
+
+		<p>For each triangle face we iterate over, we get the three vertices as p0, p1, and p2. I used the Vector3D's cross product function to compute N = (p₁ - p₀) × (p₂ - p₀).</p>
+
+		<p>Then, we multiply the normal by the triangle's area to weight it properly. Finally, we apply v.normalize() is a unit vector.</p>
+
+		<p><b>Show screenshots of dae/teapot.dae (not .bez) comparing teapot shading with and without vertex normals. Use Q to toggle default flat shading and Phong shading.</b></p>
+			
 		<h3>Part 4: Edge flip</h3>
 		Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 
