@@ -272,6 +272,16 @@
           describe any interesting implementation / debugging tricks you have
           used.</b
         >
+
+	<p>
+	  First, I grabbed the halfedges he0 (e0's halfedge) and he1 (he0's twin), as well as their next/previous halfedges.
+ 	  I also obtained the vertices a, b, c, d as shown in the diagram.
+	</p>
+
+	<p>
+	   I then updated the halfedges, faces, and vertices according to this diagram that I drew. There was no need for me
+           to update the edges, since I left e0 alone and returned that.
+	</p>
       </p>
 
       <p></p>
