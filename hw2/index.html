@@ -325,6 +325,23 @@
 	<p>
 	  <b>Briefly explain how you implemented the edge split operation and describe any interesting implementation / debugging tricks you have used.</b>
 	</p>
+  <p>
+    First of all, we grabbed all the data that we need as shown on the left side of the graph below. 
+    We also calculate the position of the midpoint vertex by taking the average position of the 2 verticies that are 
+    connected by the given edge, which are vertex B and C in the graph below. Note that if the given edge 
+    is on boundary, we return the new vertex right away without doing anything else. We then initialize all the new elements 
+    that are created after splitting. Which are 1 new vertex, 3 new edges, 6 new 
+    halfedges, and 2 new faces. After initialization, I pretty much just 
+    update the edges, verticies, halfedges and faces based on the graph down below, but there are a lot of different ways to do 
+    it as well. After all the assignment, we just return the new vertex. 
+  </p>
+  <figure>
+    <img
+      src="./images/Edge Split.jpeg"
+      alt="How we implemented flip"
+       style="width: 70%"
+    />
+</figure>
 	
 	<p><b>Show screenshots of a mesh before and after some edge splits.</b></p>
 	<div style="display: flex; flex-direction: column; align-items: center">
@@ -370,6 +387,14 @@
         <b
           >Write about your eventful debugging journey, if you have experienced one.</b
         >
+      </p>
+      I would say this part of the assignment is really complicated but is not hard conceptually. We preety much just need to draw 
+      a graph out first to see what elements we need and where to assign everything, but after finish drawing the graoh, everything 
+      else is pretty much just follow the graph. The debugging process for us was pretty much just using the hotkeys to see whether
+      the assignment are correct or not, and visually debug to see what is missing and maybe there are something that we forget to 
+      update or assign. 
+      <p>
+      
       </p>
 
       <p>
