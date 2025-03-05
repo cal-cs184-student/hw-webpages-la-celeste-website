@@ -444,6 +444,48 @@
       </p>
 
       <p>
+        As we perform more steps of loop subdivision, the sharp corners and edges begin to smooth out.
+	We decided to perform several splits on one of the faces in icosahedron/input.dae before loop subdivision.
+	As shown in the screenshots below (and made clearer without the grid), you can see that the face's edges are properly preserved after loop subdivision.
+	This confirms that pre-splitting edges preserves sharp edges.
+      </p>
+
+	<div style="display: flex; flex-direction: column; align-items: center">
+	  <table style="width: 100%; text-align: center; border-collapse: collapse">
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/presplit0.png" width="350" />
+		<figcaption>Original.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/presplit1.png" width="350" />
+		<figcaption>Step 1.</figcaption>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/presplit2.png" width="350" />
+		<figcaption>Step 2.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/presplit3.png" width="350" />
+		<figcaption>Step 3.</figcaption>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/presplit4.png" width="350" />
+		<figcaption>Step 4.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/presplit4_gridless.png" width="350" />
+		<figcaption>Step 4. (no grid)</figcaption>
+	      </td>
+	    </tr>
+	  </table>
+	</div>
+
+      <p>
         <b
           >Load dae/cube.dae. Perform several iterations of loop subdivision on the cube.
 	  Notice that the cube becomes slightly asymmetric after repeated subdivisions.
