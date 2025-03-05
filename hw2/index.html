@@ -380,31 +380,8 @@
       </p>
 
       <p>
-        In the boundary case I created 4 new halfedges, 2 new edges, 1 new face, and 1 new vertex (as opposed to
-	6 new halfedges, 3 new edges, 2 new faces, and 1 new vertex for the non-boundary face). In both cases, the 1
-	new vertex is the midpoint m. Halfedge h3 and the midpoint m become part of the boundary. Besides these
-	differences, the main process is similar with reassigning several pointers.
+        N/A
       </p>
-
-	    
-      <div style="display: flex; flex-direction: column; align-items: center">
-	  <table style="width: 100%; text-align: center; border-collapse: collapse">
-	    <tr>
-	      <td style="text-align: center">
-		<figure>
-		  <img src="./images/before_boundary_splits.png" width="350" />
-		  <figcaption>Before.</figcaption>
-		</figure>
-	      </td>
-	      <td style="text-align: center">
-		<figure>
-		  <img src="./images/after_boundary_splits.png" width="350" />
-		  <figcaption>After boundary splits.</figcaption>
-		</figure>
-	      </td>
-	    </tr>
-	  </table>
-	</div>
 
       <h3>Part 6: Loop subdivision for mesh upsampling</h3>
       <p>
@@ -412,6 +389,14 @@
           >Briefly explain how you implemented the loop subdivision and describe any
 	  interesting implementation / debugging tricks you have used.</b
         >
+      </p>
+
+      <p>
+        As recommended in the writeup, we updated the the original vertices' positions with the Loop subdivision rule before performing subdivisions on the mesh.
+        To calculate the new vertices' positions, we computed a weighted average of their adjacent vertex positions. Instead of using degree(), we had to
+	slightly rewrite the algorithm to consider vertices in the boundary case.
+	Then, we performed edge splitting by extracting the original size as mesh.nEdges() to prevent the new edges from being added, which would make it an infinite loop.
+	Next, we flipped new edges that connect an old and new vertex. Finally, we updated the vertices' positions with their new positions.
       </p>
 
       <p>
