@@ -495,6 +495,66 @@
       </p>
 
       <p>
+        When calling loop subdivision on cube, we can see that it becomes slightly asymmetric over time.
+	There is only one line across the middle of every face, making it only symmetrical in one direction.
+      </p>
+
+	<div style="display: flex; flex-direction: column; align-items: center">
+	  <table style="width: 100%; text-align: center; border-collapse: collapse">
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/cube0.png" width="350" />
+		<figcaption>Original.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/cube1.png" width="350" />
+		<figcaption>Step 1.</figcaption>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/cube2.png" width="350" />
+		<figcaption>Step 2.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/cube3.png" width="350" />
+		<figcaption>Step 3.</figcaption>
+	      </td>
+	    </tr>
+	  </table>
+	</div>
+
+      <p>
+        I made the cube's upsampling more symmetrical by splitting each line that goes through the faces' middles: <code>X</code> instead of <code>\</code>.
+	It's a simple fix, but this makes the resulting shape symmetrical in more than one direction.
+      </p>
+
+	<div style="display: flex; flex-direction: column; align-items: center">
+	  <table style="width: 100%; text-align: center; border-collapse: collapse">
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/xcube0.png" width="350" />
+		<figcaption>Original.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/xcube1.png" width="350" />
+		<figcaption>Step 1.</figcaption>
+	      </td>
+	    </tr>
+	    <tr>
+	      <td style="text-align: center">
+		<img src="./images/xcube2.png" width="350" />
+		<figcaption>Step 2.</figcaption>
+	      </td>
+	      <td style="text-align: center">
+		<img src="./images/xcube3.png" width="350" />
+		<figcaption>Step 3.</figcaption>
+	      </td>
+	    </tr>
+	  </table>
+	</div>
+
+      <p>
         <b
           >If you have implemented any extra credit extensions, explain what you did and document how they work with screenshots.</b
         >
