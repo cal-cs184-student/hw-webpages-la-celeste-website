@@ -84,7 +84,7 @@
         is only one control point left.
       </p>
       <p>
-        I implemented this in my code by creating a vector of control points to
+        We implemented this in by creating a vector of control points to
         return (after one iteration).
       </p>
       <p>
@@ -160,7 +160,7 @@
           style="width: 50%"
         />
         <figcaption>
-          It doesn't look too different. But I found it really hard to stretch
+          It doesn't look too different. But it was really hard to stretch
           the control points on Windows.
         </figcaption>
       </figure>
@@ -215,12 +215,12 @@
       </p>
 
       <p>
-        I started with a Vector3D named v by initializing it to (0, 0, 0). This
+        We started with a Vector3D named v by initializing it to (0, 0, 0). This
         will be used to sum the weighted normals.
       </p>
 
       <p>
-        Then, I grab "this" vertex's halfedge and iterate over its neighboring
+        Then, we grab "this" vertex's halfedge and iterate over its neighboring
         faces with a do-while loop similar to the one described in the writeup.
       </p>
 
@@ -231,7 +231,7 @@
 
       <p>
         For each triangle face we iterate over, we get the three vertices as p0,
-        p1, and p2. I used the Vector3D's cross product function to compute N =
+        p1, and p2. We used the Vector3D's cross product function to compute N =
         (p₁ - p₀) × (p₂ - p₀).
       </p>
 
@@ -274,19 +274,19 @@
         >
 
 	<p>
-	  First, I grabbed the halfedges he0 (e0's halfedge) and he1 (he0's twin), as well as their next/previous halfedges.
- 	  I also obtained the vertices a, b, c, d as shown in the diagram.
+	  First, we grabbed the halfedges he0 (e0's halfedge) and he1 (he0's twin), as well as their next/previous halfedges.
+ 	  We also obtained the vertices a, b, c, d as shown in the diagram.
 	</p>
 
 	<p>
-	   I then updated the halfedges, faces, and vertices according to this diagram that I drew. There was no need for me
-           to update the edges, since I left e0 alone and returned that.
+	   We then updated the halfedges, faces, and vertices according to this diagram. There was no need
+           to update the edges, since we left e0 alone and returned that.
 	</p>
 
 	<figure>
             <img
               src="./images/flip_diagram.png"
-              alt="How I implemented flip"
+              alt="How we implemented flip"
                style="width: 70%"
             />
         </figure>
@@ -317,7 +317,7 @@
         >
 
 	<p>
-	   Honestly, the debugging for Task 4 wasn't too bad. It was straightforward since I followed the diagram that I drew.
+	   Honestly, the debugging for Task 4 wasn't too bad. It was straightforward after drawing the diagram.
 	</p>
       </p>
 
