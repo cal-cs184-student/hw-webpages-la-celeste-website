@@ -406,9 +406,9 @@
       <p>
         In the boundary case I created 4 new halfedges, 2 new edges, 1 new face, and 1 new vertex (as opposed to
 	6 new halfedges, 3 new edges, 2 new faces, and 1 new vertex for the non-boundary face). In both cases, the 1
-	new vertex is the midpoint m. Halfedge h3 and the midpoint m become part of the boundary. Besides these
-	differences, the main process is similar with reassigning several pointers. However, it was unsuccessful,
-	since it breaks the triangle after splitting it.
+	new vertex is the midpoint m. Halfedge h3 and the midpoint m become part of the boundary. Two of the new
+	edges were created to connect v3 to its opposite vertices. Besides these differences, the main process
+	is similar with reassigning several pointers (though less than the non-boundary case).
       </p>
 
 
@@ -417,13 +417,13 @@
 	    <tr>
 	      <td style="text-align: center">
 		<figure>
-		  <img src="./images/before_boundary_splits.png" width="350" />
+		  <img src="./images/pre_boundary.png" width="350" />
 		  <figcaption>Before.</figcaption>
 		</figure>
 	      </td>
 	      <td style="text-align: center">
 		<figure>
-		  <img src="./images/after_boundary_splits.png" width="350" />
+		  <img src="./images/post_boundary.png" width="350" />
 		  <figcaption>After boundary splits.</figcaption>
 		</figure>
 	      </td>
