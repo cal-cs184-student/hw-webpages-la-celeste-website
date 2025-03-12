@@ -52,7 +52,10 @@
 		  <b>
 		    Walk through the ray generation and primitive intersection parts of the rendering pipeline.
 		  </b>
-		    &#10;&#13;Test
+		    &#10;&#13;We implemented raytracing with a for loop that iterates over the number of random samples (ns_aa) of some pixel (x, y) in the image.
+		    After we normalize the x and y values over the image's dimensions, we compute the radiance of each sampled ray. We then get the sum of radiances
+		    and divide it by the number of samples to get the average estimated radiance, which is then written to the sample buffer after updating the pixel
+		    with the average radiance color.
 		</p>
 
 		<p>
