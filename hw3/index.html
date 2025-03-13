@@ -33,6 +33,7 @@
 		<br>
 
 		Link to webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-la-celeste-website">cal-cs184-student.github.io/hw-webpages-la-celeste-website</a>
+		<br>
 		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw3-fiat-lux">github.com/cal-cs184-student/sp25-hw3-fiat-lux</a>
 
 		<!--
@@ -107,6 +108,13 @@
 		  <b>
 		    Walk through your BVH construction algorithm. Explain the heuristic you chose for picking the splitting point.
 		  </b>
+		</p>
+
+		<p>
+		  Our BVH construction algorithm constructs a binary tree where each node has a bounding box, which we expanded as necessary.
+		  If the current node has less than <code>max_leaf_size</code> primitives, then it's a leaf node. We give it iterators to the start and end of its primitives, and return.
+		  Afterwards, we handle the internal node case. We select the splitting axis based on the bounding box's largest dimension.
+		  Our splitting heuristic is a median split; we divide primitives in half with <code>midpoint = start + (n / 2)</code>. This ensures that the tree is balanced.
 		</p>
 
 		<p>
