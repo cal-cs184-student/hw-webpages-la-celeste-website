@@ -129,6 +129,27 @@
 		  </b>
 		</p>
 
+		<p>
+		  As you can see in the images below, implementing BVH substantially sped up the rendering runtime. It appears that the BVH implementation spends SLIGHTLY more time
+		  on collecting primitives and building the BVH (since this isn't relevant to the non-BVH implementation). The BVH implementation took roughly 1/100th of the time
+		  to render, its average speed was roughly 100 times faster, and it averaged roughly 150 times less intersection tests per ray.
+		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+	                <img src="images/before_bvh.png" width="400px"/>
+			<figcaption>Stats before BVH.</figcaption>
+		      </td>
+		      <td style="text-align: center;">
+		        <img src="images/after_bvh.png" width="400px"/>
+		        <figcaption>Stats after BVH</figcaption>
+		      </td>
+		    </tr>
+		  </table>
+		</div>.
+
 		<h2>Part 3: Direct Illumination</h2>
 		Lorem ipsu
 
