@@ -228,7 +228,7 @@
 		      </td>
 		      <td style="text-align: center;">
 		        <img src="images/4_light_rays.png" width="400px"/>
-		        <figcaption>4 light ras</figcaption>
+		        <figcaption>4 light rays</figcaption>
 		      </td>
 		    </tr>
 		    <tr>
@@ -248,6 +248,12 @@
 		  <b>
 		    Compare the results between uniform hemisphere sampling and lighting sampling in a one-paragraph analysis.
 		  </b>
+		</p>
+
+		<p>
+		  The hemisphere sampling image looks noticeably grainier than the importance sampling when running the same specs.
+		  Particularly on the walls and floor, there is a lot more noise in the hemisphere rendering. Importance sampling gives us better
+		  results because it prioritizes rays that will contribute to the illumination, rather than randomly picking directions.
 		</p>
 
 		<h2>Part 4: Global Illumination</h2>
