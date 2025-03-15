@@ -113,8 +113,11 @@
 		<p>
 		  Our BVH construction algorithm constructs a binary tree where each node has a bounding box, which we expanded as necessary.
 		  If the current node has less than <code>max_leaf_size</code> primitives, then it's a leaf node. We give it iterators to the start and end of its primitives, and return.
-		  Afterwards, we handle the internal node case. We select the splitting axis based on the bounding box's largest dimension.
-		  Our splitting heuristic is a median split; we divide primitives in half with <code>midpoint = start + (n / 2)</code>. This ensures that the tree is balanced.
+		  Afterwards, we handle the internal node case. We select the splitting axis in a way that creates a balanced tree.
+		  Our splitting heuristic is a median split. First, we determine which axis has the largest range in the bounding box.
+		  Then, we sort the primitives based on their bounding box's centroid along the chosen axis.
+		  We split the primitives in the middle, and finally recursively call construct_bvh() on both sides of this half.
+		  This reduces the expected runtime from O(n) to O(log(n)), significantly speeding up the rendering process.
 		</p>
 
 		<p>
@@ -174,10 +177,41 @@
 		</p>
 
 		<p>
+		  For hemisphere sampling, we iterated through each sample in num_samples and converted the sample's direction to world space coordinates.
+		  We create a new ray from hit_p (+ EPS_D) in the direction of the world space coordinates. If this ray intersects with the light sample,
+		  we add <code>emission * isect.bsdf->f(w_out, w_in) * cos_theta(w_in) / pdf</code> to L_out as described in lecture, where the PDF is
+		  <code>1 / (2 * PI)</code>.
+		</p>
+
+		<p>
+		  For importance sampling, we iterate through num_samples for each light. First, we define num_samples as 1 if it's a delta light,
+		  and ns_area_light otherwise. We obtain samples using sample_L to get a direction towards that light point, the distance, and the PDF.
+		  We also create a shadow ray from our hit point in that direction, then bound its min_t and max_t values by a factor of EPS_F to avoid self-intersection.
+		  If the cosine between our normal and the light direction is positive (the light is in front of the surface) and the shadow ray is not blocked,
+		  we add the BSDF to the total light as described in lecture after multiplying it by the cosine term described above and dividing it by the obtained
+		  pdf expression. Finally, we add this total_light computation divided by numSamples to L_out.
+		</p>
+
+		<p>
 		  <b>
 		    Show some images rendered with both implementations of the direct lighting function.
 		  </b>
 		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+	                <img src="images/some_image_hemisphere.png" width="400px"/>
+			<figcaption>Hemisphere: 64 camera rays per pixel, max ray depth 6, 32 samples per area light</figcaption>
+		      </td>
+		      <td style="text-align: center;">
+		        <img src="images/some_image_importance.png" width="400px"/>
+		        <figcaption>Importance: 64 camera rays per pixel, max ray depth 6, 32 samples per area light</figcaption>
+		      </td>
+		    </tr>
+		  </table>
+		</div>.
 
 		<p>
 		  <b>
