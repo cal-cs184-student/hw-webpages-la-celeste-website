@@ -265,16 +265,55 @@
 		</p>
 
 		<p>
+		  For the indirect lighting function, we first check if isAccumBounces is true. If so, we accumulate light from all bounces over the path.
+		  Then, we defined a variable called `termination_prob` for Russian roulette that's set to 0.3. If the remaining depth > 1, we continue
+		  with indirect lighting. While the path isn't being stopped by Russian roulette, we sample the BSDF to get the new direction,
+		  convert it to world coordinates, make a new ray, then check for intersections. If there is an intersection, we recursively call
+		  `at_least_one_bounce_radiance()` to trace the path. We once again weight each indirect contribution by the BSDF value, cosine term,
+		  and inverse PDF. This gets added to L_out. Finally, after we trace every path and accumulate their contributions, we return the summed L_out.
+		</p>
+
+		<p>
 		  <b>
 		    Show some images rendered with global (direct and indirect) illumination. Use 1024 samples per pixel.
 		  </b>
 		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+	                <img src="images/spheres_direct_and_indirect.png" width="400px"/>
+			<figcaption>1024 samples per pixel, max ray depth 4, 4 samples per area light</figcaption>
+		      </td>
+		      <td style="text-align: center;">
+		        <img src="images/bunny_direct_and_indirect.png" width="400px"/>
+		        <figcaption>1024 samples per pixel, max ray depth 4, 4 samples per area light</figcaption>
+		      </td>
+		    </tr>
+		  </table>
+		</div>
 
 		<p>
 		  <b>
 		    Pick one scene and compare rendered views first with only direct illumination, then only indirect illumination. Use 1024 samples per pixel. (You will have to edit PathTracer::at_least_one_bounce_radiance(...) in your code to generate these views.)
 		  </b>
 		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+	                <img src="images/bunny_direct.png" width="400px"/>
+			<figcaption>Only direct illumination.</figcaption>
+		      </td>
+		      <td style="text-align: center;">
+		        <img src="images/bunny_indirect.png" width="400px"/>
+		        <figcaption>Only indirect illumination.</figcaption>
+		      </td>
+		    </tr>
+		  </table>
+		</div>
 
 		<p>
 		  <b>
