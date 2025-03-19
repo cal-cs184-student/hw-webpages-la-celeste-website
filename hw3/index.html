@@ -180,7 +180,7 @@
 		  For hemisphere sampling, we iterate through each sample in num_samples. For each sample, we randomly grab a direction uniformly
 		  across the hemisphere (w_in) with <code>hemisphereSampler->get_sample()</code>. We create a new ray from hit_point (+ EPS_D to avoid
 		  self-intersection) in w_in's direction converted to world space, and see if it intersects an object in the scene. If the intersected
-		  object in question is a light source, we accumulate the contribution according to the BDSF formula described in lecture, where the
+		  object in question is a light source, we accumulate the contribution according to the BSDF formula described in lecture, where the
 		  PDF is <code>1 / (2 * PI)</code>. Finally, we normalize L_out by the number of samples, which gives us the Monte Carlo estimate.
 		</p>
 
@@ -188,7 +188,7 @@
 		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
 		    <tr>
 		      <td style="text-align: center;">
-	                <img src="images/uniform_BDSF.png" width="400px"/>
+	                <img src="images/uniform_BSDF.png" width="400px"/>
 		    </tr>
 		  </table>
 		</div>
@@ -207,7 +207,7 @@
 		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
 		    <tr>
 		      <td style="text-align: center;">
-	                <img src="images/importance_BDSF.png" width="400px"/>
+	                <img src="images/importance_BSDF.png" width="400px"/>
 		    </tr>
 		  </table>
 		</div>
