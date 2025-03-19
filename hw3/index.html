@@ -364,17 +364,17 @@
 
 		<p>
 		  In non-accumulated lighting, we only see the top light at Depth 0. At Depth 1, we can see
-		  that the entire room is lit except for the ceiling and its light. This makes sense, because at depth 1,
+		  that the entire room is lit except for the ceiling and its light. This makes sense, because at Depth 1,
 		  the light wouldn't have the chance to bounce back to the ceiling (since it's coming from the ceiling).
 		  The bunny and its shadow are also visible.
 		</p>
 
 		<p>
-		  Starting at depth 2, we're at the stage where the light can bounce onto any part of the room. This
+		  Starting at Depth 2, we're at the stage where the light can bounce onto any part of the room. This
 		  makes the shading more realistic, but it has diminishing returns as the depth level increases.
 		  This is because light loses energy as it bounces off a surface. As such, it makes sense that
-		  depth 3 essentially looks like a darker version of depth 2. This pattern continues through
-		  later depths, where depth 5 already looks nearly pitch-black.
+		  Depth 3 essentially looks like a darker version of Depth 2. This pattern continues through
+		  later depths, where Depth 5 already looks nearly pitch-black.
 		</p>
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -412,6 +412,19 @@
 		    <tr>
 		  </table>
 		</div>
+
+		<p>
+		  In accumulated lighting, we similarly only see the top light at Depth 0. At Depth 1, we can see
+		  that the entire room is lit except for the ceiling. We accumulate the light observed at Depth 0,
+		  but it still hasn't had the chance to bounce back to the ceiling yet.
+		</p>
+
+		<p>
+		  Starting at Depth 2, the shading looks more realistic and it is now accumulated with previous depths.
+		  We still see diminishing returns, but in a different way than in the unaccumulated case. As we increase
+		  the depth level, the shadows added make the lighting look more realistic. However, once we add enough
+		  ray bounces, the image hardly changes anymore.
+		</p>
 
 		<p>
 		  <b>
