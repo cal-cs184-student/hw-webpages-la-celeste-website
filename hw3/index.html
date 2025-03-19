@@ -178,19 +178,29 @@
 
 		<p>
 		  For hemisphere sampling, we iterated through each sample in num_samples and converted the sample's direction to world space coordinates.
-		  We create a new ray from hit_p (+ EPS_D) in the direction of the world space coordinates. If this ray intersects with the light sample,
+		  We create a new ray from hit_p (+ EPS_D) in the direction of the world space coordinates. If this ray intersects with a light source,
 		  we add <code>emission * isect.bsdf->f(w_out, w_in) * cos_theta(w_in) / pdf</code> to L_out as described in lecture, where the PDF is
 		  <code>1 / (2 * PI)</code>.
 		</p>
 
 		<p>
-		  For importance sampling, we iterate through num_samples for each light. First, we define num_samples as 1 if it's a delta light,
-		  and ns_area_light otherwise. We obtain samples using sample_L to get a direction towards that light point, the distance, and the PDF.
-		  We also create a shadow ray from our hit point in that direction, then bound its min_t and max_t values by a factor of EPS_F to avoid self-intersection.
-		  If the cosine between our normal and the light direction is positive (the light is in front of the surface) and the shadow ray is not blocked,
-		  we add the BSDF to the total light as described in lecture after multiplying it by the cosine term described above and dividing it by the obtained
-		  pdf expression. Finally, we add this total_light computation divided by numSamples to L_out.
+		  For importance sampling, we iterate through each light in the scene. First, we define num_samples as 1 if it's a delta light,
+		  and ns_area_light for area lights. For each sample, we obtain w_in_world as the incoming direction with sample_L. We also
+		  get the distance to the light, and the light's PDF. We calculate the cosine between the surface normal and the light's direction.
+		  We use that to cast a shadow ray from hit_point to the light source. We add the light's contribution to total_light if it is
+		  in front of the surface (cosine test) and if there's nothing blocking hit_point and the light source. We then accumulate L_out
+		  based on the BSDF as described in lecture. Finally, we average all the samples for each light, and take this sum as the
+		  total direct lighting.
 		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+	                <img src="images/importance_BDSF.png" width="400px"/>
+		    </tr>
+		  </table>
+		</div>.
 
 		<p>
 		  <b>
