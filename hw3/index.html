@@ -363,7 +363,18 @@
 		</div>
 
 		<p>
-		  In non-accumulated lighting, we only see the top light at Depth 0. At Depth 1, 
+		  In non-accumulated lighting, we only see the top light at Depth 0. At Depth 1, we can see
+		  that the entire room is lit except for the ceiling and its light. This makes sense, because at depth 1,
+		  the light wouldn't have the chance to bounce back to the ceiling (since it's coming from the ceiling).
+		  The bunny and its shadow are also visible.
+		</p>
+
+		<p>
+		  Starting at depth 2, we're at the stage where the light can bounce onto any part of the room. This
+		  makes the shading more realistic, but it has diminishing returns as the depth level increases.
+		  This is because light loses energy as it bounces off a surface. As such, it makes sense that
+		  depth 3 essentially looks like a darker version of depth 2. This pattern continues through
+		  later depths, where depth 5 already looks nearly pitch-black.
 		</p>
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -493,6 +504,13 @@
 		</div>
 
 		<p>
+		  When we render this scene with 1 sample per pixel, it generates the room, spheres, and shading accurately.
+		  However, it is extremely grainy in quality. It looks slightly less grainy in 2 samples per pixel, but it's
+		  still pretty bad. As we keep increasing the number of samples per pixel, the graininess eventually goes away.
+		  By the time we reach 1,024 samples per pixel, the resulting scene looks incredibly smooth.
+		</p>
+
+		<p>
 		  <b>
 		    You will probably want to use the instructional machines for the above renders in order to not burn up your own computer for hours.
 		  </b>
@@ -515,8 +533,8 @@
 		  how complex a pixel's lighting is (i.e. high variance). We implemented this with s1 (illuminance sum),
 		  s2 (squared illuminance sum), and n (number of samples) as described in the writeup. We have a for loop
 		  that iterates over samples until we reach the max amount of samples, or we reach the convergence condition.
-		  We calculate x_k with `radiance.illum();` and use it to update the values for s1 and s2.
-		  Then, as suggested in the writeup, we check convergence every `samplesPerBatch=32` pixels.
+		  We calculate x_k with <code>radiance.illum()</code> and use it to update the values for s1 and s2.
+		  Then, as suggested in the writeup, we check convergence every <code>samplesPerBatch=32</code> pixels.
 		  We calculate μ and σ² properly, then use them to see if I is less than maxTolerance * μ. If so, the sample has converged,
 		  and we can break out of the for loop. We then divide the radiance sum by n to obtain the average radiance,
 		  update the sample buffer, and update the sample count buffer accordingly.
