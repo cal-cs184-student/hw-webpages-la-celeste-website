@@ -48,20 +48,18 @@
 		</p>
 
 		<p>
-		  <h2>
-		    Sample with a purpose!
-		  </h2>
+		  Our key takeaway: Sample with a purpose!
 		</p>
 		
 		<p>
-		  You can't rely on luck to get accurate estimations. Uniform hemisphere sampling will eventually converge to the correct light sources,
-		  but we'll hit several non-light objects in the process. This gives us noisy renderings of scenes. On the other hand, importance
-		  sampling specifically samples directions towards light sources. Each sample will most likely contribute to the final rendering.
-		  The resulting scene will be much smoother, and we can finally render scenes with point lights.
+		  You can't rely on luck to get good estimations. Uniform hemisphere sampling will eventually converge to the correct light sources,
+		  but it will hit several non-light objects in the process. This gives us noisy renderings of scenes. On the other hand, importance
+		  sampling specifically samples directions towards light sources. Each sample will most likely contribute to the final rendering,
+		  which is much smoother.
 		</p>
 
 		<p>
-		  This idea also extends to adaptive sampling. Originally, we sample each pixel the same number of times. However,
+		  This idea also extends to adaptive sampling. In Part 1, we sample each pixel the same number of times. However,
 		  after completing Part 5, we use a sample's mean and standard deviation to determine if it has converged.
 		  Some pixels converge quickly, such as a black background, so they won't need many samples. However, high variance pixels like
 		  detailed shadows will need more samples until they converge.
