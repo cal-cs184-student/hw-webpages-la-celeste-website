@@ -99,7 +99,7 @@
 		<p>
 		  The triangle intersection algorithm was pretty much based off the Möller-Trumbore Algorithm as described in Lecture 9-10, slide 21.
 		  If the ray's direction is parallel to the triangle, there is no intersection (S1 * E1 == 0).
-		  We calculate Barycentric coordinates as shown in the diagram from lecture, and use those along with r.min_t and r.max_t to test for intersection.
+		  We calculate Barycentric coordinates as shown in the diagram from lecture, and check if they're bounded by 0 and 1 as one of the intersection conditions.
 		  If t is less than r.min_t or greater than r.max_t, we return false. Only intersections where t ≥ 0 are valid, as described in lecture, so we return
 		  false if t is negative. Right before we return true, we update r.max_t to be t. This lets us ignore all future intersections that are farther away.
 		</p>
