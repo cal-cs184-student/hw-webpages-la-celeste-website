@@ -55,16 +55,17 @@
 		
 		<p>
 		  When you're trying to obtain knowledge from a data source, such as finding light sources, you can't
-		  rely on luck to get accurate estimations. We see that uniform hemisphere sampling is essentially throwing darts while blindfolded.
-		  It will eventually converge to the correct light sources, but we'll hit several non-light objects in the process. This gives
-		  us noisy renderings of scenes. On the other hand, importance sampling specifically samples directions towards light sources.
-		  Each sample will most likely contribute to the final rendering. The resulting scene will be much smoother, and we can finally
-		  render scenes with point lights.
+		  rely on luck to get accurate estimations. Uniform hemisphere sampling will eventually converge to the correct light sources,
+		  but we'll hit several non-light objects in the process. This gives us noisy renderings of scenes. On the other hand, importance
+		  sampling specifically samples directions towards light sources. Each sample will most likely contribute to the final rendering.
+		  The resulting scene will be much smoother, and we can finally render scenes with point lights.
 		</p>
 
 		<p>
-		  This idea also extends to adaptive sampling, where we can use statistical methods to determine if a sample has converged
-		  by using the mean and standard deviation to compare a pixel's complexity relative to the image.
+		  This idea also extends to adaptive sampling. Originally, we sample each pixel the same number of times. However,
+		  after completing Part 5, we use a sample's mean and standard deviation to determine if it has converged.
+		  Some pixels converge quickly, such as a black background, so they won't need many samples. However, high variance pixels like
+		  detailed shadows will need more samples until they converge.
 		</p>
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
