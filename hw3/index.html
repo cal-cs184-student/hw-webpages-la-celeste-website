@@ -218,7 +218,7 @@
 		  For hemisphere sampling, we iterate through each sample in num_samples. For each sample, we randomly grab a direction uniformly
 		  across the hemisphere (w_in) with <code>hemisphereSampler->get_sample()</code>. We create a new ray from hit_point (+ EPS_D to avoid
 		  self-intersection) in w_in's direction converted to world space, and see if it intersects an object in the scene. If the intersected
-		  object in question is a light source, we accumulate the contribution according to the BSDF formula described in lecture, where the
+		  object in question is a light source, we accumulate the contribution according to the BRDF formula described in lecture, where the
 		  PDF is <code>1 / (2 * PI)</code>. Finally, we normalize L_out by the number of samples, which gives us the Monte Carlo estimate.
 		</p>
 
@@ -237,7 +237,7 @@
 		  get the distance to the light, and the light's PDF. We calculate the cosine between the surface normal and the light's direction.
 		  We use that to cast a shadow ray from hit_point to the light source. We add the light's contribution to total_light if it is
 		  in front of the surface (cosine test) and if there's nothing blocking hit_point and the light source. We then accumulate L_out
-		  based on the BSDF as described in lecture. Finally, we average all the samples for each light, and take this sum as the
+		  based on the BRDF as described in lecture. Finally, we average all the samples for each light, and take this sum as the
 		  total direct lighting.
 		</p>
 
@@ -344,6 +344,7 @@
 		  Russian roulette isn't stopping our path, we convert the sampled direction to world space. We create a new ray with an increased depth,
 		  and check for intersections. If there is an intersection, we recursively call at_least_one_bounce_radiance() and weigh the contribution
 		  by the BSDF value, cosine term, and PDF. Finally, after we trace every path and accumulate their contributions, we return the summed L_out.
+		  However, if isAccumBounces is false, we only return the radiance from the provided depth.
 		</p>
 
 		<p>
@@ -649,7 +650,7 @@
 		</p>
 
 		<p>
-		  For both images, the termination probability is 0.30.
+		  The termination probability is 0.30 for Wall-E, and 0.05 for the bunny.
 		</p>
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
@@ -666,12 +667,12 @@
 		    </tr>
 		    <tr>
 		      <td style="text-align: center;">
-	                <img src="images/dragon.png" width="400px"/>
-			<figcaption>Dragon.</figcaption>
+	                <img src="images/bunny_final.png" width="400px"/>
+			<figcaption>Bunny</figcaption>
 		      </td>
 		      <td style="text-align: center;">
-		        <img src="images/dragon_rate.png" width="400px"/>
-			<figcaption>Dragon sample rate.</figcaption>
+		        <img src="images/bunny_final_rate.png" width="400px"/>
+			<figcaption>Bunny sample rate.</figcaption>
 		      </td>
 		    </tr>
 		  </table>
