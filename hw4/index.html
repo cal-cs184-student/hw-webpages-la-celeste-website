@@ -129,7 +129,9 @@
 		</p>
 
 		<p>
-		  (Analysis goes here)
+		  In low density, we see that the cloth has a blue gradient which represents varying levels of strain.
+		  Meanwhile, the gradient becomes a uniform blue in the high density case. It's possible that the forces
+		  exerted by gravity on this cloth are so large that they've reached the limit.
 		</p>
 
 	        <div style="display: flex; flex-direction: column; align-items: center;">
@@ -151,6 +153,12 @@
 		  <b>
 		    What about for damping?
 		  </b>
+		</p>
+
+		<p>
+		  When the damping is low, the cloth rapidly swings back and forth before it settles in its final position.
+		  Meanwhile, when the cloth has high damping, it becomes stiff and settles into its final position without
+		  swinging back and forth.
 		</p>
 
 	        <div style="display: flex; flex-direction: column; align-items: center;">
@@ -176,6 +184,26 @@
 		</p>
 
 		<p>
+		  Here's a fun case I also wanted to talk about. When the damping is 0%, the cloth indefinitely swings
+		  back and forth. Wheeeee!!!
+		</p>
+
+	        <div style="display: flex; flex-direction: column; align-items: center;">
+  		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+		        <img src="images/part2/back.png" width="400px"/>
+			  <figcaption>Back...</figcaption>
+		      </td>
+		      <td style="text-align: center;">
+		        <img src="images/part2/forth.png" width="400px"/>
+			  <figcaption>...and forth!</figcaption>
+		      </td>
+		    </tr>
+		  </table>
+	        </div>
+
+		<p>
 		  <b>
 		    Show us a screenshot of your shaded cloth from scene/pinned4.json in its final resting state!
 		    If you choose to use different parameters than the default ones, please list them.
@@ -187,6 +215,7 @@
 		    <tr>
 		      <td style="text-align: center;">
 	                <img src="images/part2/final_resting_default.png" width="400px"/>
+			<figcaption>Default parameters.</figcaption>
 		    </tr>
 		  </table>
 		</div>
