@@ -230,6 +230,21 @@
 		</p>
 
 		<p>
+		  For handling sphere collision, we first calculate a vector that represents the distance from <code>this</code>
+		  sphere's origin to the point mass' position. If there is a collision, we calculate the tangent point on the sphere's surface,
+		  obtain the correction vector from the point mass's last position to (slightly above) the aformentioned tangent point, 
+		  then scale the correction vector by (1 - friction) to update the new position.
+		</p>
+
+		<p>
+		  For handling plane collision, we determine if the point mass crossed the plane by checking if their dot products with the plane's normal have
+		  different signs. If so, we lerp between the old position and new position to get the point mass' intersection time.
+		  We use this time to get the exact intersection point, which is then used to compute a point offset from the intersection point by SURFACE_OFFSET
+		  in the normal direction. This offset point is finally used to create the correction vector, and we update the mass's new position with this correction
+		  vector, scaled by (1 - friction).
+		</p>
+
+		<p>
 		  <b>
 		    Show us screenshots of your shaded cloth from scene/sphere.json in its final resting state on the sphere using
 		    the default ks = 5000 as well as with ks = 500 and ks = 50000. Describe the differences in the results.
@@ -237,7 +252,9 @@
 		</p>
 
 		<p>
-		  Analysis goes here.
+		  When k_s is low, the cloth has lots of wrinkles and wraps over the sphere quite easily. As we increase the spring
+		  constant, the cloff becomes stiff and has less wrinkles. It deviates less from its original position, and doesn't
+		  cover the sphere as much.
 		</p>
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
