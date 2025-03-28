@@ -303,7 +303,15 @@
 		</p>
 
 		<p>
-		  Analysis goes here.
+		  Rather than doing the naïve O(n²) approach of approach of looping over all pairs of point masses, we implemented the Leetcode-esque approach
+		  of spatial mapping to accomplish this in O(n) with the best data structure ever, the hashmap. First, we take the point mass's position and
+		  flatten its 3D box position into a 1D value. While computing this unique value, we multiply x, y, and z by random prime numbers to ensure
+		  that these hash values are unique. We build the spatial map by hashing the position of each point mass, and update point mass' pointers to
+		  their appropriate bucket in the hashmap. If we find a hash that doesn't exist in the map, we create a new vector to store it. Then, we
+		  implemented self collision by hashing the current point mass's (curr) position, and get the vector of point masses with the same hash value as
+		  curr. These are the candidates for collision with curr (skipping curr with itself). We compute the distance between curr and its candidates,
+		  and if the distance is within the collision threshold, we calculate the correction vector. We then create the correction vector and scale
+		  it by the number of simulation steps. Finally, we went back to Cloth::simulate to add the self-collision functionality.
 		</p>
 
 		<p>
