@@ -28,7 +28,7 @@
 	<body>
 		<div class="container">
 		<h1>CS184/284A Spring 2025 Homework 4 Write-Up</h1>
-		<div style="text-align: center;">Names: Yun Chang and Sebastian Mejia </div>
+		<div style="text-align: center;">Names: Sebastian Mejia </div>
 
 		<br>
 
@@ -575,7 +575,13 @@
 		</p>
 
 		<p>
-		  I call this shader "The Pixelated Mirror".
+		  I call this shader "The Pixelated Mirror". When we defined the mirror shader shown above, we have reflect_direction which
+		  stores the incoming view ray's direction of reflection as a 3D vector. First, we define a float "pixel_size". The larger
+		  this float is, the more pixelated the image becomes. We divide all three components of reflect_direction by pixel_size,
+		  scaling it to become larger. We then call floor() on this scaled vec3, rounding each component down to the nearest integer.
+		  This makes each component's value be discrete, giving it a more blocky appearance than its original continuous value.
+		  Finally, we scale reflect_direction back to its original scale by multiplying it by pixel_size, except now its values
+		  are rigid and pixelated.
 		</p>
 
 		<div style="display: flex; flex-direction: column; align-items: center;">
