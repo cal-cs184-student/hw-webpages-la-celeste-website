@@ -1,394 +1,230 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MiniBART Web App Proposal</title>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --primary: #0072c6;
-      --primary-dark: #005ea3;
-      --secondary: #f5f5f5;
-      --text: #333333;
-      --text-light: #666666;
-      --accent: #ff6b00;
-      --background: #ffffff;
-      --card-bg: #f9f9f9;
-      --border: #dddddd;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Inter', sans-serif;
-      line-height: 1.6;
-      color: var(--text);
-      background-color: var(--background);
-    }
-    
-    .hero {
-      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-      color: white;
-      padding: 3rem 0;
-      text-align: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      margin-bottom: 2rem;
-    }
-    
-    .hero h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-    }
-    
-    .hero-image {
-      margin: 2rem auto;
-      display: block;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-    }
-    
-    .hero-image:hover {
-      transform: scale(1.02);
-    }
-    
-    .container {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 0 2rem 4rem;
-    }
-    
-    .link-badge {
-      display: inline-block;
-      background-color: var(--accent);
-      color: white;
-      padding: 0.5rem 1rem;
-      border-radius: 20px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.3s ease;
-      margin-top: 1rem;
-    }
-    
-    .link-badge:hover {
-      background-color: #e05a00;
-    }
-    
-    h2 {
-      color: var(--primary);
-      margin: 2.5rem 0 1rem;
-      border-bottom: 2px solid var(--primary);
-      padding-bottom: 0.5rem;
-      font-weight: 600;
-    }
-    
-    h3 {
-      color: var(--primary-dark);
-      margin: 1.5rem 0 1rem;
-      font-weight: 600;
-    }
-    
-    p {
-      margin-bottom: 1rem;
-    }
-    
-    .team-card {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1rem 0;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    }
-    
-    .team-members {
-      list-style-type: none;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1rem;
-    }
-    
-    .team-member {
-      background-color: white;
-      border-radius: 8px;
-      padding: 1rem;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    
-    .team-member:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-    
-    .section-card {
-      background-color: var(--card-bg);
-      border-radius: 8px;
-      padding: 1.5rem;
-      margin: 1.5rem 0;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-    
-    .mockup-image {
-      width: 100%;
-      max-width: 700px;
-      margin: 1.5rem auto;
-      display: block;
-      border-radius: 8px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .timeline {
-      margin: 2rem 0;
-    }
-    
-    .timeline-item {
-      border-left: 3px solid var(--primary);
-      padding-left: 1.5rem;
-      margin-bottom: 1.5rem;
-      position: relative;
-    }
-    
-    .timeline-item:before {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      border-radius: 50%;
-      background-color: var(--primary);
-      left: -9px;
-      top: 4px;
-    }
-    
-    .timeline-date {
-      font-weight: 600;
-      color: var(--primary-dark);
-    }
-    
-    .resources-list {
-      list-style-type: none;
-    }
-    
-    .resource-item {
-      padding: 0.75rem;
-      margin-bottom: 0.5rem;
-      border-radius: 4px;
-      transition: background-color 0.2s ease;
-    }
-    
-    .resource-item:hover {
-      background-color: var(--secondary);
-    }
-    
-    .resource-link {
-      color: var(--primary);
-      text-decoration: none;
-      font-weight: 500;
-      transition: color 0.2s ease;
-    }
-    
-    .resource-link:hover {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-    
-    .footer {
-      text-align: center;
-      padding: 2rem;
-      background-color: var(--primary-dark);
-      color: white;
-      margin-top: 3rem;
-    }
-    
-    @media (max-width: 768px) {
-      .container {
-        padding: 0 1.5rem 3rem;
-      }
-      
-      .hero {
-        padding: 2rem 0;
-      }
-      
-      .hero h1 {
-        font-size: 2rem;
-      }
-      
-      .team-members {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-      }
-    }
-  </style>
-</head>
-<body>
-  <div class="hero">
-    <div class="container">
-      <h1>MiniBART Web App</h1>
-      <p>A real-time 3D visualization of Bay Area transit with advanced fog rendering</p>
-      <img src="mini_bart.png" alt="MiniBART Logo" width="150" class="hero-image"/>
-      <p><small>(BART officially restricts usage of its logo and branding)</small></p>
-      <a href="https://nekolocation.github.io/portfolio/minibart-proposal" class="link-badge">View Online Proposal</a>
-    </div>
-  </div>
-  
-  <div class="container">
-    <div class="section-card">
-      <p>
-        Our project is a real-time map web-app of the Bay Area, utilizing APIs to source geographic info and Three.js for rendering.
-        Our main feature is real-time ray marching, used to render fog and BART train locations. We plan to implement this using Three.js as our engine,
-        fed with info from <a href="https://www.bart.gov/about/developers" class="resource-link">BART Developer Resources</a>.
-      </p>
-    </div>
-    
-    <h2>Project Contributors</h2>
-    <div class="team-card">
-      <ul class="team-members">
-        <li class="team-member">Sage Aguina-Kang</li>
-        <li class="team-member">Edward Gilmore</li>
-        <li class="team-member">Sebastian Mejia</li>
-        <li class="team-member">Jovin "The Destroyer" Valdez</li>
-      </ul>
-    </div>
-    
-    <h2>Problem Statement</h2>
-    <div class="section-card">
-      <p>
-        Our project idea was inspired by <a href="https://minitokyo3d.com/" class="resource-link">MiniTokyo3D</a>, a web simulation of the Tokyo train systems. MiniTokyo accomplishes
-        this by using a Public Transportation API to fetch real-time train locations, creating a 3D map of Tokyo and its train via various web frameworks.
-        We want to create something similar: a real-time simulation focused on the BART that uses 3D graphics to create an engaging and informative user experience.  
-      </p>
-      
-      <p>
-        Traveling in the Bay Area can be greatly affected by weather conditions, which can affect how one dresses for travel and whether public transportation runs on time.
-        Our goal is to create a simulation that provides quick, clear, and precise information about fog and transit conditions. We want to present this information in a 3D
-        simulation with fast and visually interesting graphics. It can be a challenge accomplishing this within a web context, as computation resources are often more limited,
-        and fast-rendering languages (like C++) aren't directly interfaceable in a web context. Because of this, a key area of expected difficulty will be implementing and
-        optimizing 3D approaches that balance visual fidelity with available processing resources. We plan to solve this by using lower-cost solutions to problems when available,
-        using methods such as ray-marching instead of path tracing.
-      </p>
-    </div>
-    
-    <h2>Goals and Deliverables</h2>
-    
-    <h3>Baseline Goals</h3>
-    <div class="section-card">
-      <p>
-        Since we want to design a web app, we will have to account for technical limitations of the more complex algorithms taught in class. For example, implementing a complete
-        real-time path tracer over the scene would be too computationally expensive. Instead, we are planning on exploring more lightweight options. Ray marching will be explored
-        as an alternative, which can still produce visually compelling results while remaining performant enough for real-time rendering on the web. This approach should be well
-        suited for effects like fog, which can be rendered more effectively without the overhead of complex geometry or lighting models. Raymarching will also be used for rendering
-        the 3D models of the BART trains. 
-      </p>
-      
-      <p>
-        In our demo we plan to walkthrough our web application, showcasing a map of the bay area with moving 3D objects representing BART trains with lighting and shading. We will
-        show examples of areas with our custom rendered fog, possibly with settings we can toggle to play around with different effects. We want to answer the question of what
-        limits web-based graphical processing has when implementing rendering methods like ray marching. 
-      </p>
-      
-      <p>
-        Our baseline plan for the project is specifically to create custom rendered fog and lighting in a bay area BART map simulator using Three.js. Performance and quality will
-        be measured via accuracy of simulations (mapping trains in the simulation to real-world locations) and render times allowing sufficient FPS in-browser (with a rough goal as
-        5-30fps). We expect ray marching to run well in browsers, but if we experience struggles rendering the bay, we may explore downgrading some rendering (like fog) to some other
-        method, like real time rasterization.
-      </p>
-    </div>
-    
-    <h3>Aspirational Goals</h3>
-    <div class="section-card">
-      <p>
-        If things go well enough, our aspirational plan includes rendering other forms of real time transportation information (such as buses) and implementing other weather effects
-        (like rain). Rendering buildings in 3D would also be a nice feature, depending on how much additional processing requirements it adds to the scene. 
-      </p>
-      
-      <p>
-        The following image is a photoshopped edit of a MiniTokyo screenshot, showing what we expect a rendered scene of our project to look like in a very general sense. Note the
-        foggy scene and 3D train cars. 
-      </p>
-      
-      <img src="fog_mockup.png" alt="Fog Mockup" class="mockup-image"/>
-    </div>
-    
-    <h2>Project Schedule</h2>
-    <div class="timeline">
-      <div class="timeline-item">
-        <div class="timeline-date">March 30 - April 4:</div>
-        <p>Finalize project idea and draft proposal</p>
-      </div>
-      
-      <div class="timeline-item">
-        <div class="timeline-date">April 4 - April 7:</div>
-        <p>Set up the repository and experiment with the frameworks/tools we plan to use like Three.js, BART API, OpenWeather, etc, and watch the
-        crash course Youtube video. Divide tasks such as fog rendering and transit API</p>
-      </div>
-      
-      <div class="timeline-item">
-        <div class="timeline-date">April 8 - April 14:</div>
-        <p>Create a base Three.js map, it can be dummy buildings instead of using the map API. Complete a simple, baseline implementation of rasterized
-        fog. Formally begin drafting milestone deliverables.</p>
-      </div>
-      
-      <div class="timeline-item">
-        <div class="timeline-date">April 15 - April 20 (GRADED MILESTONE DUE):</div>
-        <p>Add animations to train movement, start integrating the 511 API. The website should be rough, but a working prototype.
-        Finish drafting milestone deliverables.</p>
-      </div>
-      
-      <div class="timeline-item">
-        <div class="timeline-date">April 21 - April 27:</div>
-        <p>Start polishing the prototype. Implement refinements such as ray marching to make BART trains' lighting more realistic. Implement conditional
-        fog rendering with weather API.</p>
-      </div>
-      
-      <div class="timeline-item">
-        <div class="timeline-date">April 28 - May 4 (FINAL DELIVERABLES DUE):</div>
-        <p>Final touches. Add different types of buildings, and more advanced train models to make it more visually appealing. Implement any necessary web optimizations.</p>
-      </div>
-    </div>
-    
-    <h2>Resources</h2>
-    <div class="section-card">
-      <p>
-        Since we are considering building this as a web application mostly with Three.js, we are largely limited to what browsers can accomplish in real time. This also means that
-        we need to be mindful of the wide range of devices with varying specifications that may access the website. For the purposes of developing and testing the website, however,
-        we plan to use our own laptops (Mac and Windows). 
-      </p>
-      
-      <p>
-        We will use an online service to host the web app. We plan to source web data from a free API and handle it ourselves using Three.js for rendering.
-      </p>
-      
-      <p>
-        We plan to use available online resources such as documentation, tutorials, articles, etc. 
-      </p>
-      
-      <p>
-        The following are examples that we've drawn inspiration from or plan to use for conceptual/technical understanding:
-      </p>
-      
-      <ul class="resources-list">
-        <li class="resource-item"><a href="https://threejs.org/" class="resource-link">Three.js documentation</a></li>
-        <li class="resource-item"><a href="https://threejs.org/manual/#en/installation" class="resource-link">Three.js manual</a></li>
-        <li class="resource-item"><a href="https://www.youtube.com/watch?v=oKbCaj1J6EI" class="resource-link">Three.js Shaders (GLSL) Crash Course For Absolute Beginners</a></li>
-        <li class="resource-item"><a href="https://www.youtube.com/watch?v=C8Cuwq1eqDw" class="resource-link">Three.js Tutorial on Shaders (beginners)</a></li>
-        <li class="resource-item"><a href="https://www.youtube.com/watch?v=k1zGz55EqfU&t=171s" class="resource-link">Fog, Basic Fog, and Better Fog (Three.js Tutorial)</a></li>
-        <li class="resource-item"><a href="https://snayss.medium.com/three-js-fog-hacks-fc0b42f63386" class="resource-link">Three.js Fog Hacks</a></li>
-        <li class="resource-item"><a href="https://www.shadertoy.com/view/XslGRr" class="resource-link">GLSL Clouds with raymarching</a> (inspiration)</li>
-        <li class="resource-item"><a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API" class="resource-link">Canvas API</a></li>
-        <li class="resource-item"><a href="https://www.bart.gov/schedules/developers/api" class="resource-link">BART API</a></li>
-        <li class="resource-item"><a href="https://openweathermap.org/api" class="resource-link">OpenWeather API</a></li>
-      </ul>
-    </div>
-  </div>
-  
-  <div class="footer">
-    <p>Epic copyright goes here</p>
-  </div>
-</body>
+<html>
+	<head>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=default'></script>
+		<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+		<style>
+			h1 {
+				text-align: center;
+			}
+
+			.container {
+				margin: 0 auto;
+				padding: 60px 20%;
+			}
+
+			figure {
+				text-align: center;
+			}
+
+			img {
+				display: inline-block;
+			}
+
+			body {
+				font-family: 'Inter', sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="container">
+		<h1>CS284A Spring 2025 Homework 1 Write-Up</h1>
+		<div style="text-align: center;">Name: Sebastian Mejia</div>
+
+		<br>
+
+		Link to webpage: <a href="https://cal-cs184-student.github.io/hw-webpages-la-celeste-website/">cal-cs184-student.github.io/hw-webpages-la-celeste-website</a>
+		
+		<br>
+
+		Link to GitHub repository: <a href="https://github.com/cal-cs184-student/sp25-hw1-la-celeste">github.com/cal-cs184-student/sp25-hw1-la-celeste</a>
+
+		<!--
+		We've already added one heading per task, to make your write-up as navigable when grading. Please fit your write-up within these sections!
+		-->
+
+		<h2>Overview</h2>
+		Give a high-level overview of what you implemented in this homework. Think about what you've built as a whole. Share your thoughts on what interesting things you've learned from completing the homework.
+		<p>It was really satisfying to learn different techniques to improve the quality of different images. Supersampling is my favorite algorithm that I learned, because of how intuitive it is. Before it was mentioned in lecture, I thought “why can’t we just assign a percentage to how much a point is inside the triangle, so we can shade that pixel accordingly?” The GUI tools also helped a lot for my understanding. I especially liked using Z to open the the pixel inspector, as this let me see the blurry vs blocky differences with bilinear and nearest sampling.</p>
+
+
+		<h2>Task 1: Drawing Single-Color Triangles</h2>
+		<b>Walk through how you rasterize triangles in your own words.</b>
+		<img src="sampling.png" width="300">
+		<img src="line tests.png" width="300">
+		<p>I was very much inspired by the pseudocode and approaches described in lecture. First, I had to find the bounds for xmax and ymax. I simply did this by taking max(x1, x2, x3) and max(y1, y2, y3) since these three points are already provided to us. I then calculated three edges: 01 (from vertex 0 to vertex 1), 12, and 20. We’re about to see why this is useful.</p>
+		<p>I looked at the lecture notes (again) and applied the three line tests, creating 3 functions that determine if a point is inside these lines.</p>
+		<p>Now, we can get into the meat of the for loop.</p>
+		<ul>
+			<li>For each point, sample at the pixel center (x + 0.5, y + 0.5)
+			<li>Run the three line tests
+			<li>Fill the pixel with the triangle’s color ONLY IF all tests are ≥ 0, meaning that the point is inside the triangle.
+		</ul>
+		<p>I was getting frustrated by Basic Test 6 because the counter-clockwise hexagons weren’t getting filled in.</p>
+		<ul>
+			<li>I resolved this issue by calculating the area as \( (x1 - x0) * (y2 - y0) - (x2 - x0) * (y1 - y0) \), setting the orientation to 1 if the area is positive, and -1 if it’s negative.
+			<li>I then updated the line tests to multiply the final result by the orientation. This allowed my code to work for clockwise and counterclockwise cases.
+		</ul>
+		<p><b>Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.</b>
+		<p>Well…my algorithm is no worse than checking every sample within the bounding box of the triangle, because that’s what I just did.
+		<p>Calculating the max/min values of x and y and iterating over every (x,y) point in between creates the smallest possible rectangle that surrounds the provided points.
+		
+		<h2>Task 2: Antialiasing by Supersampling</h2>
+		<p><b>Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.</b>
+		<p>I made use of the built-in sample buffer. It’s a 1D vector that contains all samples.
+		<ul>
+			<li>Its size is width * height * sample_rate, which is the number of subsamples per pixel.
+		</ul>
+		<p>I also used the built-in RGB framebuffer, which stores the final image that will be displayed.
+		<ul>
+			<li>Its size is 3 * width * height because there are three channels (Red/Green/Blue).
+		</ul>
+		<p>I updated the set_sample_rate() and set_framebuffer_target() functions to accommodate for the sample rate that we’re now using.
+		<p>fill_pixel() was also updated, now it has a for loop that writes to all subsamples of a pixel.
+		<p>I updated the algorithm by modifying rasterize_triangle() to implement supersampling.
+		<ul>
+			<li>In Task 1, it was a double for loop that selected every sample within the bounding box.
+			<li>Now, for each pixel, there are additional nested for loops “i” and “j” that iterate over the (square root of the) sample rate.
+			<li>We write to the sample buffer for every subsample that passes all three line tests.
+			<li>Now, as we write the result to the framebuffer, we take the average of every pixel’s subsample. This gives us a more nuanced color shade than the binary “triangle” or “not triangle”.
+		</ul>
+		<p>Now, as we write the result to the framebuffer, we take the average of every pixel’s subsample. This gives us a more nuanced color shade than the binary “triangle” or “not triangle”.
+		<p><b>Show png screenshots of basic/test4.svg with the default viewing parameters and sample rates 1, 4, and 16 to compare them side-by-side. Position the pixel inspector over an area that showcases the effect dramatically; for example, a very skinny triangle corner. Explain why these results are observed.</b>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="triangles 1.png" width="400px"/>
+				  <figcaption>Sample rate of 1.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="triangles 4.png" width="400px"/>
+				  <figcaption>Sample rate of 4.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="triangles 16.png" width="400px"/>
+				  <figcaption>Sample rate of 16.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<p>When the sample rate is 1, we can see particularly horrid jaggies in regions like the red triangle’s edges. Some parts of the triangle seem completely disjointed.
+		<p>However, the sample rates of 4 and 16 give us smoother triangles because they average the colors around the triangles’ edges.
+
+		<h2>Task 3: Transforms</h2>
+		<p><b>Create an updated version of svg/transforms/robot.svg with cubeman doing something more interesting, like waving or running. Feel free to change his colors or proportions to suit your creativity. Save your svg file as my_robot.svg in your docs/ directory and show a png screenshot of your rendered drawing in your write-up. Explain what you were trying to do with cubeman in words.</b></p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="diggsbot.png" width="350"/>
+				</td>
+				<td style="text-align: center;">
+				  <img src="diggs.png" width="350"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+			
+		<p>I created a diva robot with hands on its hips. I was inspired by Stefon Diggs’ iconic, dramatic photo after his team lost to the Chiefs in the playoffs.</p>
+		<p>I used the rotate transformation to get the arms and hands in place: Left arm (-30), left hand (60), right arm (30), right hand (-60).</p>
+		<p>Even with these transformations, the hands’ positions didn’t look quite right. So I translated the left hand to (-25 45) and the right hand to (25 45).</p>
+			
+		<h2>Task 4: Barycentric coordinates</h2>
+		<p><b>Explain barycentric coordinates in your own words and use an image to aid you in your explanation. One idea is to use a svg file that plots a single triangle with one red, one green, and one blue vertex, which should produce a smoothly blended color triangle.</b></p>
+		<img src="barycentric.png" width="300">
+		<p>I like to think of barycentric coordinates as a game of tug-of-war. Imagine you have three friends who form a triangle, and you’re being attached to three ropes being pulled by your friends. Your position will be defined by how hard your friends are pulling their respective ropes. In the attached image, each vertex (A, B, C) has its own weight (α, β, γ) that determines the point’s location in the triangle.</p>
+		<p><b>Show a png screenshot of svg/basic/test7.svg with default viewing parameters and sample rate 1. If you make any additional images with color gradients, include them.</b></p>
+		<img src="color wheel.png" width="300">
+			
+		<h2>Task 5: "Pixel sampling" for texture mapping</h2>
+		<p><b>Explain pixel sampling in your own words and describe how you implemented it to perform texture mapping. Briefly discuss the two different pixel sampling methods, nearest and bilinear.</b></p>
+		<p>Pixel sampling is essentially the process of picking values from a 2D texture, and using them to determine a pixel’s respective color on a 3D surface.</p>
+		<p>The problem with mapping a texture is that the UV coordinates don’t automatically match up with the texture’s pixel grid.</p>
+		<p>Nearest Neighbor Sampling</p>
+		<ul>
+			<li>Simple approach. Just round to the closest texel of the given UV coordinate.</li>
+			<li>It makes an image that looks blocky when you zoom in.</li>
+			<li>This was done by converting UV to texture space, by multiplying by width and height. Then, find the nearest integer coordinates.</li>
+		</ul>
+		<p>Bilinear Sampling</p>
+		<ul>
+			<li>A more sophisticated approach. Sample the four nearest texels, and blend between them.</li>
+			<li>The resulting image is smoother than nearest sampling.</li>
+			<li>We calculate weights (s, t) based on how close the sample point is to each texel.</li>
+			<li>LERP in the x direction, then interpolate the results in the y direction.</li>
+		</ul>
+		<p><b>Check out the svg files in the svg/texmap/ directory. Use the pixel inspector to find a good example of where bilinear sampling clearly defeats nearest sampling. Show and compare four png screenshots using nearest sampling at 1 sample per pixel, nearest sampling at 16 samples per pixel, bilinear sampling at 1 sample per pixel, and bilinear sampling at 16 samples per pixel.</b></p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="nearest1.png" width="400px"/>
+				  <figcaption>Nearest + Sampling rate 1.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="bilinear1.png" width="400px"/>
+				  <figcaption>Bilinear + Sampling rate 1.</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="nearest16.png" width="400px"/>
+				  <figcaption>Nearest + Sampling rate 16.</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="bilinear16.png" width="400px"/>
+				  <figcaption>Bilinear + Sampling rate 16.</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		<p>Comment on the relative differences. Discuss when there will be a large difference between the two methods and why.</p>
+		<ul>
+			<li>I notice that nearest sampling is very rigid/pixelated, particularly in the Mediterranean sea as shown in the pixel inspector.</li>
+			<li>Meanwhile, bilinear sampling blurs the image to create a smoother effect.</li>
+			<li>There is a larger difference between the two methods when the sampling rate is lower. At 16 samples per pixel, there is enough antialiasing to smooth the image regardless of bilinear or nearest sampling being applied.</li>
+		</ul>
+
+		<h2>Task 6: "Level Sampling" with mipmaps for texture mapping</h2>
+		<p><b>Explain level sampling in your own words and describe how you implemented it for texture mapping.</b></p>
+		<p>Level sampling is the process of picking the appropriate resolution level, based on the viewing distance.</p>
+		<p>We generally prefer higher levels for objects close to the camera (higher resolution), and lower levels (lower resolution) for far away objects.</p>
+		<p>I calculated the mipmap level by taking the derivatives of u and v, I scaled them to the texture dimension, then I computed the maximum rate of change, and finally I took the Log_2 of this value. Just like in lecture.</p>
+		<img src="level.png" width="300">
+			
+		<p><b>You can now adjust your sampling technique by selecting pixel sampling, level sampling, or the number of samples per pixel. Describe the tradeoffs between speed, memory usage, and antialiasing power between the three various techniques.</b></p>
+		<p>P_NEAREST is faster because it only samples one (nearest) texel, whereas P_BILINEAR reads and interpolates 4 texels. P_BILINEAR is better for antialiasing, since it's not as blocky/jagged as P_NEAREST.</p>
+		<p>L_ZERO is the fastest (only uses the base texture), L_NEAREST is medium speed (looks up one level), and L_LINEAR is the slowest (samples and interpolates 2 levels). L_ZERO uses the least memory because, again, it only utilizes the base texture. However, L_NEAREST and L_LINEAR store the entire mipmap pattern, which is 1/3 more memory than the base texture. L_LINEAR has the best antialiasing, since it transitions between mipmap levels smoothly.</p>
+		<p>Supersampling is linearly faster than sampling rate, e.g. using a sample size of 4 will make the render time 4x slower. Memory also increases linearly with supersampling, since you need to store multiple samples for every pixel.</p>
+		<p><b>Using a png file you find yourself, show us four versions of the image, using the combinations of L_ZERO and P_NEAREST, L_ZERO and P_LINEAR, L_NEAREST and P_NEAREST, as well as L_NEAREST and P_LINEAR.</b></p>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="l_zero p_nearest.png" width="400px"/>
+				  <figcaption>L_ZERO + P_NEAREST</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="l_zero p_linear.png" width="400px"/>
+				  <figcaption>L_ZERO + P_LINEAR</figcaption>
+				</td>
+			  </tr>
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="l_nearest p_nearest.png" width="400px"/>
+				  <figcaption>L_NEAREST + P_NEAREST</figcaption>
+				</td>
+				<td style="text-align: center;">
+				  <img src="l_nearest p_linear.png" width="400px"/>
+				  <figcaption>L_NEAREST + L_LINEAR</figcaption>
+				</td>
+			  </tr>
+			</table>
+		</div>
+		
+		</div>
+	</body>
 </html>
