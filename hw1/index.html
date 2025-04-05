@@ -87,6 +87,53 @@
 		  using methods such as ray-marching instead of path tracing.
 		</p>
 
+		<h2>Goals and Deliverables</h2>
+		<br>
+		<h3>Baseline Goals</h3>
+
+		<p>
+		  Since we want to design a web app, we will have to account for technical limitations of the more complex algorithms taught in class. For example, implementing a complete
+		  real-time path tracer over the scene would be too computationally expensive. Instead, we are planning on exploring more lightweight options. Ray marching will be explored
+		  as an alternative, which can still produce visually compelling results while remaining performant enough for real-time rendering on the web. This approach should be well
+		  suited for effects like fog, which can be rendered more effectively without the overhead of complex geometry or lighting models. Raymarching will also be used for rendering
+		  the 3D models of the BART trains. 
+		</p>
+
+		<p>
+		  In our demo we plan to walkthrough our web application, showcasing a map of the bay area with moving 3D objects representing BART trains with lighting and shading. We will
+		  show examples of areas with our custom rendered fog, possibly with settings we can toggle to play around with different effects. We want to answer the question of what
+		  limits web-based graphical processing has when implementing rendering methods like ray marching. 
+		</p>
+
+		<p>
+		  Our baseline plan for the project is specifically to create custom rendered fog and lighting in a bay area BART map simulator using Three.js. Performance and quality will
+		  be measured via accuracy of simulations (mapping trains in the simulation to real-world locations) and render times allowing sufficient FPS in-browser (with a rough goal as
+		  (5-30fps). We expect ray marching to run well in browsers, but if we experience struggles rendering the bay, we may explore downgrading some rendering (like fog) to some other
+		  method, like real time rasterization.
+		</p>
+
+		<h3>Aspirational Goals</h3>
+
+		<p>
+		  If things go well enough, our aspirational plan includes rendering other forms of real time transportation information (such as buses) and implementing other weather effects
+		  (like rain). Rendering buildings in 3D would also be a nice feature, depending on how much additional processing requirements it adds to the scene. 
+		</p>
+
+		<p>
+		  The following image is a photoshopped edit of a MiniTokyo screenshot, showing what we expect a rendered scene of our project to look like in a very general sense. Note the
+		  foggy scene and 3D train cars. 
+		</p>
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+		  <table style="width: 100%; text-align: center; border-collapse: collapse;">
+		    <tr>
+		      <td style="text-align: center;">
+		        <img src="fog_mockup.png" width="200px"/>
+		      </td>
+		    </tr>
+		  </table>
+		</div>
+
 		<h2>Task 1: Drawing Single-Color Triangles</h2>
 		<b>Walk through how you rasterize triangles in your own words.</b>
 		<img src="sampling.png" width="300">
