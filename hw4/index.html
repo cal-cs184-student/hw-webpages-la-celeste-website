@@ -55,6 +55,11 @@
 		  similar to a loose spring constant that allows the cloth to hang. This really satisfied my curiosity.
 		</p>
 
+		<p>
+		  Also, it was really cool to work with a new GPU language for Part 5. I've never been much of a GPU programmer, but I have learned CUDA from taking
+		  CS 267 this semester. Another neat language to add to my toolbox.
+		</p>
+
 		<h2>Part 1: Masses and springs</h2>
 
 		<p>
@@ -169,8 +174,9 @@
 
 		<p>
 		  When the damping is low, the cloth rapidly swings back and forth before it settles in its final position.
+		  It's also a lot wrinklier with low damping, because different parts of the cloth are susceptible to external forces.
 		  Meanwhile, when the cloth has high damping, it rigidly settles into its final position without
-		  swinging back and forth. This makes sense, because damping represents the loss of energy due to forces
+		  swinging back and forth. No wrinkling. This makes sense, because damping represents the loss of energy due to forces
 		  which may be caused by friction.
 		</p>
 
@@ -264,8 +270,8 @@
 		</p>
 
 		<p>
-		  When k_s is low, the cloth has lots of wrinkles and wraps over the sphere quite easily. As we increase the spring
-		  constant, the cloth becomes stiff and has less wrinkles. It deviates less from its original position, and doesn't
+		  When k_s is low, the cloth isn't stiff. This allows it to drape over the sphere quite easily. As we increase the spring
+		  constant, the cloth becomes stiff. It deviates less from its original position, and doesn't
 		  cover the sphere as much.
 		</p>
 
