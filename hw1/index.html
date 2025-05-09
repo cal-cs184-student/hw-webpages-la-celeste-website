@@ -67,6 +67,21 @@
 		<p><b>Explain how your algorithm is no worse than one that checks each sample within the bounding box of the triangle. The bounding box of the triangle is defined as the smallest rectangle that can be drawn whilst ensuring that the entire triangle is within it.</b>
 		<p>Well…my algorithm is no worse than checking every sample within the bounding box of the triangle, because that’s what I just did.
 		<p>Calculating the max/min values of x and y and iterating over every (x,y) point in between creates the smallest possible rectangle that surrounds the provided points.
+
+		<p><b>Show a png screenshot of basic/test4.svg with the default viewing parameters and with the pixel inspector centered on an interesting part of the scene.</b>
+		<div style="display: flex; flex-direction: column; align-items: center;">
+
+		<div style="display: flex; flex-direction: column; align-items: center;">
+			<table style="width: 100%; text-align: center; border-collapse: collapse;">
+			  <tr>
+				<td style="text-align: center;">
+				  <img src="task_1.png" width="350"/>
+				</td>
+			  </tr>
+			</table>
+		</div>
+
+		<p>As you can see, there are noticeable jaggies when you zoom into the corner of these triangles.</p>
 		
 		<h2>Task 2: Antialiasing by Supersampling</h2>
 		<p><b>Walk through your supersampling algorithm and data structures. Why is supersampling useful? What modifications did you make to the rasterization pipeline in the process? Explain how you used supersampling to antialias your triangles.</b>
